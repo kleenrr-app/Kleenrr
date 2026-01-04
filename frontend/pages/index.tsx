@@ -1,11 +1,14 @@
-
-import ServiceSelector from '../components/ServiceSelector';
-
 export default function Home() {
   return (
-    <main className="p-4">
-      <h1 className="text-2xl font-bold">kleenrr</h1>
-      <ServiceSelector />
+    <main style={{ padding: 20 }}>
+      <h1>kleenrr</h1>
+      <p>On-demand snow, lawn, and vehicle services</p>
+
+      <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
+        <button>❄ Snow</button>
+        <button>🌱 Lawn</button>
+        <button>🚗 Vehicle</button>
+      </div>
     </main>
   );
 }
