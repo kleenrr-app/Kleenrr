@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kleenrr – Cleaner Onboarding</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script defer src="/js/supabase.js"></script>
+</head>
+<body>
+
+<h1>Cleaner Onboarding</h1>
+
+<form id="onboardForm">
+  <input required placeholder="Full Name" id="name">
+  <input required placeholder="Phone" id="phone">
+  <input required placeholder="Vehicle Type">
+  
+  <label>Equipment</label>
+  <select id="plow">
+    <option>None</option>
+    <option>Straight Plow</option>
+    <option>V-Plow</option>
+    <option>Box Plow</option>
+  </select>
+
+  <button>Submit</button>
+</form>
+
+<script>
+document.getElementById('onboardForm').onsubmit = async (e) => {
+  e.preventDefault()
+
+  const { error } = await supabase.from('cleaners').insert({
+    name: name.value,
+    phone: phone.value,
+    plow_type: plow.value
+  })
+
+  if (!error) location.href = '/cleaner/dashboard.html'
+}
+</script>
+
+</body>
+</html>
