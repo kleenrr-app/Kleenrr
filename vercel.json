@@ -4,3 +4,10 @@
   "installCommand": null,
   "outputDirectory": "frontend/public"
 }
+{
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
