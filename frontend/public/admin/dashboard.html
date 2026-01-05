@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kleenrr Admin</title>
+</head>
+<body>
+
+<h2>Jobs</h2>
+<ul id="jobs"></ul>
+
+<script type="module">
+import { supabase } from '/supabase.js'
+
+const { data } = await supabase.from('jobs').select('*')
+
+document.getElementById('jobs').innerHTML =
+  data.map(j => `<li>${j.id} - ${j.status}</li>`).join('')
+</script>
+
+</body>
+</html>
