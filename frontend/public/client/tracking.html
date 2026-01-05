@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Track Cleaner</title>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div id="map" style="height:100vh"></div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+<script type="module">
+import { supabase } from '/supabase.js'
+import '/mapbox.js'
+
+const cleanerId = 'PUT_CLEANER_UUID_HERE'
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/streets-v11',
+  zoom: 13
+})
+
+let marker
+
+supabase
+  .channel('cleaner-tracking')
+  .on(
+    'postgres_changes',
+    { event: 'UPDATE', schema: 'public', table: 'cleaners' },
+    payload => {
+      if (payload.new.id === cleanerId) {
+        const { lat, lng } = payload.new
+        if (!marker) {
+          marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map)
+          map.setCenter([lng, lat])
+        } else {
+          marker.setLngLat([lng, lat])
+        }
+      }
+    }
+  )
+  .subscribe()
+</script>
+
+</body>
+</html>
