@@ -1,0 +1,11 @@
+<button onclick="connectStripe()">Connect Stripe</button>
+
+<script type="module">
+import { supabase } from '/supabase.js'
+
+async function connectStripe() {
+  const res = await fetch('/api/stripe/connect')
+  const { url } = await res.json()
+  location.href = url
+}
+</script>
